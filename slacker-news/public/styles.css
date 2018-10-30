@@ -1,0 +1,103 @@
+body {
+    background-color: #FFF;
+    font-family: Verdana, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    margin: 10px 30px;
+}
+
+#brand {
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+#logo {
+    border: 1px solid white;
+    padding: 1px;
+    margin: 2px;
+}
+.nav-container {
+    background-color: #FC6621;
+    width: 910px;
+    height: 30px;
+}
+
+.nav {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+
+.nav li {
+    display: inline-block;
+    list-style: none;
+}
+
+.nav a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.nav li:nth-child(n+3):nth-child(-n+7) {
+    border-right: 1px solid #000;
+    padding-right: 5px;
+}
+
+.nav li:nth-child(n+2):nth-child(-n+9) {
+    margin: 5px 0;
+}
+
+.nav li:last-child {
+    padding-left: 447px
+}
+
+.main-container {
+    background-color: #F6F6EF;
+    margin: 0;
+    padding: 0;
+    width: 910px;
+}
+
+.articles-list {
+    margin: 0;
+    padding-top: 10px;
+    list-style: decimal;
+}
+.articles-list {
+    margin: 0;
+    font-size: 16px;
+}
+
+.articles-list span{
+    display: inline-block;
+}
+
+.articles-list a,
+.articles-list span {
+    color: #828282;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.articles-list li {
+    padding: 5px;
+}
+
+.articles-list a:hover {
+    text-decoration: underline;
+}
+
+.articles-list p,
+.articles-list p > a {
+    color: #000;
+    font-size: 16px;
+    margin: 0;
+}
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F6F6EF;
+  margin: 0;
+}
+
+header {
+  background-color: #FD6620;
+  text-align: center;
+}
+
+header h2 {
+  margin: 0;
+  padding-left: 5px;
+}
+
+#title {
+  color: white;
+  font-family: 'Gaegu', cursive;
+  float: left;
+}
+
+#sub-title {
+  font-size: 14px;
+  padding: 5px;
+}
+
+main {
+  margin: 4px;
+}
+
+img {
+  max-width: 375px;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }

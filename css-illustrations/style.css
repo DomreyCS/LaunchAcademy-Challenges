@@ -1,0 +1,42 @@
+.branch {
+  background-color: hsl(120, 100%, 25%);
+  border-radius: 25px;
+  height: 20px;
+  margin: 10px auto;
+}
+
+.branch-0 {
+  width: 20px;
+}
+
+.branch-1 {
+  width: 40px;
+}
+
+.branch-2 {
+  width: 80px;
+}
+
+.branch-3 {
+  width: 120px;
+}
+
+.branch-4 {
+  width: 160px;
+}
+
+.branch-5 {
+  width: 200px;
+}
+
+.branch-6 {
+  width: 240px;
+}
+
+.trunk {
+  height: 80px;
+  background-color: #A52A2A;
+  border-radius: 20px;
+  width: 25px;
+  margin: 0 auto;
+}

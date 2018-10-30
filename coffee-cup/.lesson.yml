@@ -1,0 +1,7 @@
+---
+title: "Coffee Cup"
+type: "exercise"
+description: "Model a coffee cup with a Ruby class"
+tags: "oop, initialize, objects, constructors, state, behavior, instance-methods"
+ignore:
+- "coffee-cup.md"

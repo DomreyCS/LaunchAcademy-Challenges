@@ -1,5 +1,5 @@
 class Container
-  attr_reader :weight, :maximum_holding_weight, :ingredients
+  attr_reader :weight, :maximum_holding_weight, :ingredients 
 
   def initialize(weight, maximum_holding_weight)
     @weight = weight
@@ -8,17 +8,18 @@ class Container
   end
 
   def fill_with_ingredient(ingredient)
-    current_holding_weight = 0
-    loop do
-      current_holding_weight += ingredient.weight
-      @ingredients << ingredient
-      break if ingredient.weight + current_holding_weight > @maximum_holding_weight
+    fill = 0
+
+    while fill < @maximum_holding_weight do
+      fill += ingredient.weight
+      @ingredients << ingredient.name
     end
-    @weight += current_holding_weight.round
+    
+    @weight += fill.round
   end
 
   def which_ingredient
-    @ingredients[0].name
+    ingredients[0]
   end
 
   def how_many_ingredients

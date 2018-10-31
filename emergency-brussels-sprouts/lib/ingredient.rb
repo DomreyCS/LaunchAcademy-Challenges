@@ -6,10 +6,7 @@ class Ingredient
     @weight = weight
   end
 
-  def self.create_from_grams(name, grams)
-    kg = grams / 1000
-
-    Ingredient.new(name, kg)
+  def self.create_from_grams(name, weight)
+    Ingredient.new(name, weight / 1000)
   end
-  
 end

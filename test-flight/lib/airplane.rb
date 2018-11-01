@@ -49,6 +49,4 @@ class Airplane
       "airplane already on the ground"
     end
   end
-
-
 end

@@ -1,6 +1,5 @@
 class Team
   attr_accessor :name, :rank, :wins, :losses
-
   def initialize(name)
     @name = name
     @rank = nil

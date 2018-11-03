@@ -52,11 +52,20 @@ RSpec.describe Leaderboard do
       expect(lb.show_stats("Steelers")).to include("Rank: 2")
       expect(lb.show_stats("Broncos")).to include("Rank: 3")
       expect(lb.show_stats("Colts")).to include("Rank: 4")
-
     end
   end
 
-  # describe "#display" do
-  #   it "should display the leaderboard in the terminal"
-  # end
+  describe "#display" do
+    it "should display the leaderboard in the terminal" do
+      lb.get_teams
+      lb.update_stats
+      lb.rank_teams
+      expect(lb.display).to include("--------------------------------------------------")
+      expect(lb.display).to include("| Name      Rank      Total Wins    Total Losses |")
+      expect(lb.display).to include("| Patriots  1         3             0            |")
+      expect(lb.display).to include("| Steelers  2         1             1            |")
+      expect(lb.display).to include("| Broncos   3         1             2            |")
+      expect(lb.display).to include("| Colts     4         0             2            |")
+    end
+  end
 end

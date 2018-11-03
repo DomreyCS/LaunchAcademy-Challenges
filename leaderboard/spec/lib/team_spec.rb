@@ -15,5 +15,9 @@ RSpec.describe Team do
     it 'has a loss count' do
       expect(team.losses).to eq(0)
     end
+    it 'contains collection of game info' do
+      expect(team.games).to be_a(Array)
+      expect(team.games).to eq([])
+    end 
   end
 end

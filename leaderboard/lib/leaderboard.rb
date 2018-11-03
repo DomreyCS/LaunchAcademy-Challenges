@@ -62,13 +62,37 @@ attr_reader :teams
     GAME_INFO.each do |game|
       home = @teams.select{|team| team.name == game[:home_team]}[0]
       away = @teams.select{|team| team.name == game[:away_team]}[0]
-    
+
       if game[:home_score] > game[:away_score]
         home.wins += 1
+        home.games << {
+          visiting: false,
+          win: true,
+          score: "#{game[:home_score]} to #{game[:away_score]}",
+          opp: away.name
+        }
         away.losses += 1
+        away.games << {
+          visiting: true,
+          win: false,
+          score: "#{game[:away_score]} to #{game[:home_score]}",
+          opp: home.name
+        }
       else
         away.wins += 1
+        away.games << {
+          visiting: true,
+          win: true,
+          score: "#{game[:away_score]} to #{game[:home_score]}",
+          opp: home.name
+        }
         home.losses += 1
+        home.games << {
+          visiting: false,
+          win: false,
+          score: "#{game[:home_score]} to #{game[:away_score]}",
+          opp: away.name
+        }
       end
     end
   end
@@ -85,5 +109,15 @@ attr_reader :teams
       board += "| #{team.name.ljust(8)}  #{team.rank}         #{team.wins}             #{team.losses}            |\n"
     end
     board += "--------------------------------------------------"
+  end
+
+  def team_game_summary(team)
+    summary = "#{team.name} played #{team.games.count} games.\n"
+    team.games.each do |game|
+      visiting = game[:visiting] ? "away" : "home"
+      outcome = game[:win] ? "won" : "loss"
+      summary += "They played as the #{visiting} team against the #{game[:opp]} and #{outcome}: #{game[:score]}.\n"
+    end
+    summary
   end
 end

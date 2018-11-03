@@ -68,4 +68,16 @@ RSpec.describe Leaderboard do
       expect(lb.display).to include("| Colts     4         0             2            |")
     end
   end
+
+  describe "#team_game_summary" do
+    it "should takes a parameter of a team object and prints the details of each game that team played" do
+      lb.get_teams
+      lb.update_stats
+      lb.rank_teams
+      expect(lb.team_game_summary(lb.teams[0])).to include("Patriots played 3 games.")
+      expect(lb.team_game_summary(lb.teams[0])).to include("They played as the home team against the Broncos and won: 17 to 13.")
+      expect(lb.team_game_summary(lb.teams[0])).to include("They played as the home team against the Colts and won: 21 to 17.")
+      expect(lb.team_game_summary(lb.teams[0])).to include("They played as the away team against the Steelers and won: 31 to 24.")
+    end
+  end
 end

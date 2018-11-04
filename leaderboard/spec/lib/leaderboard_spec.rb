@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Leaderboard do
-  let(:lb) { lb = Leaderboard.new } 
-
+  let(:lb) { lb = Leaderboard.new }
+  
   describe ".new" do
     it "should be initialized based on game data" do
       expect(lb).to be_a(Leaderboard)
@@ -36,8 +36,7 @@ RSpec.describe Leaderboard do
   
   describe "#update_stats" do
     it "should iterate through GAME_INFO again to set the number of wins and loses for each team" do
-      lb.get_teams
-      lb.update_stats
+      lb.updated(1,1)
       expect(lb.show_stats("Steelers")).to include("Wins: 1")
       expect(lb.show_stats("Patriots")).to include("Wins: 3")
     end
@@ -45,9 +44,7 @@ RSpec.describe Leaderboard do
 
   describe "#rank_teams" do
     it "should sort teams by wins and set their ranks" do
-      lb.get_teams
-      lb.update_stats
-      lb.rank_teams
+      lb.updated(1,1,1)
       expect(lb.show_stats("Patriots")).to include("Rank: 1")
       expect(lb.show_stats("Steelers")).to include("Rank: 2")
       expect(lb.show_stats("Broncos")).to include("Rank: 3")
@@ -57,9 +54,7 @@ RSpec.describe Leaderboard do
 
   describe "#display" do
     it "should display the leaderboard in the terminal" do
-      lb.get_teams
-      lb.update_stats
-      lb.rank_teams
+      lb.updated(1,1,1)
       expect(lb.display).to include("--------------------------------------------------")
       expect(lb.display).to include("| Name      Rank      Total Wins    Total Losses |")
       expect(lb.display).to include("| Patriots  1         3             0            |")
@@ -71,9 +66,7 @@ RSpec.describe Leaderboard do
 
   describe "#team_game_summary" do
     it "should takes a parameter of a team object and prints the details of each game that team played" do
-      lb.get_teams
-      lb.update_stats
-      lb.rank_teams
+      lb.updated(1,1,1)
       expect(lb.team_game_summary(lb.teams[0])).to include("Patriots played 3 games.")
       expect(lb.team_game_summary(lb.teams[0])).to include("They played as the home team against the Broncos and won: 17 to 13.")
       expect(lb.team_game_summary(lb.teams[0])).to include("They played as the home team against the Colts and won: 21 to 17.")

@@ -1,3 +1,5 @@
+require "pry"
+
 require_relative "../lib/team.rb"
 class Leaderboard
 GAME_INFO = [
@@ -120,4 +122,17 @@ attr_reader :teams
     end
     summary
   end
+
+  def updated(getteam = nil, upteam = nil, rank = nil)
+    if getteam
+      get_teams
+    end
+    if upteam
+      update_stats
+    end
+    if rank
+      rank_teams
+    end
+  end
 end
+

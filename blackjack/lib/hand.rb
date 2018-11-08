@@ -3,7 +3,7 @@ class Hand
 
   def initialize(cards = [])
     @hand = cards
-    @@score = 0
+    @score = 0
   end
 
   def calculate_hand

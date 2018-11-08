@@ -17,4 +17,8 @@ attr_accessor :cards
     end
     cards.shuffle!
   end
+
+  def deal
+    @cards.pop
+  end
 end

@@ -1,11 +1,58 @@
 require_relative "card"
 require_relative "deck"
 require_relative "hand"
-require 'pry'
+
+# currently does not have advance Blackjack game features including
+# 'Blackjack' (face + ace) scenarios, splitting doubles, and money 
+# transaction features e.g. (betting, buying insurance)
 
 player = Hand.new
 dealer = Hand.new
 deck = Deck.new
+
+# helper methods
+def validate_input
+  puts
+  print "Hit or Stand (H/S): "
+  input = gets.chomp
+  puts
+  until input == "Hit" || input == "Stand"
+    if ["Hit","H"].any? {|valid| valid.casecmp(input) == 0}
+      input = "Hit"
+    elsif ["Stand","S"].any? {|valid| valid.casecmp(input) == 0}
+      input = "Stand"
+    else 
+      puts
+      puts "Invalid input!"
+      print "Hit or Stand (H/S): "
+      input = gets.chomp
+      puts
+    end
+  end
+  input
+end
+
+def score(p1_score, cpu_score = false)
+  if cpu_score
+    if cpu_score > 21
+      puts
+      abort("Dealer bust! You win!")
+    elsif cpu_score == p1_score
+      puts
+      abort("Dealer push!")
+    else
+      puts
+      puts "Dealer stands."
+      puts
+      puts cpu_score > p1_score ? abort("You lose!") : abort("You win!")
+    end
+  end
+
+  if p1_score > 21
+    puts
+    abort("Bust! You lose...")
+  end
+end
 
 puts "Welcome to Blackjack!"
 puts
@@ -18,79 +65,39 @@ end
 player.hand.each do |card|
   puts "Player was dealt #{card.rank}#{card.suit}"
 end
+puts "Player score: #{player.get_score}"
+score(player.get_score)
 
-player_score = player.calculate_hand
-puts "Player score: #{player_score}"
-puts
+input = validate_input
 
-puts "Dealer is showing #{dealer.hand[0].rank}#{dealer.hand[0].suit}"
-puts
-
-print "Hit or Stand (H/S): "
-input = gets.chomp
-
-until ["Hit","Stand","S","H"].any? {|valid| valid.casecmp(input) == 0}
-  puts "Input is invalid"
-  print "Hit or Stand (H/S): "
-  input = gets.chomp
-  puts
-end
-puts
-
-until !["Hit","h"].any? {|valid| valid.casecmp(input) == 0}
+until input == "Stand"
   card = deck.deal
   puts "Player was dealt #{card.rank}#{card.suit}"
   player.hand << card
-  player_score = player.calculate_hand
-  puts "Player score: #{player_score}"
-  if player_score > 21
-    puts "Bust! You Lose..."
-  elsif player_score < 21
-    print "Hit or Stand (H/S): "
-    input = gets.chomp
-
-    until ["Hit","Stand","S","H"].any? {|valid| valid.casecmp(input) == 0}
-      puts "Input is invalid"
-      print "Hit or Stand (H/S): "
-      input = gets.chomp
-    end
-    puts
-  end
+  puts "Player score: #{player.get_score}"
+  score(player.get_score)
+  input = validate_input
 end
 
-puts "Player score: #{player_score}"
+puts "Player score: #{player.get_score}"
 puts
 
-dealer_score = dealer.calculate_hand
-dealer.hand.each do |card|
-  puts "Dealer was dealt #{card.rank}#{card.suit}"
-end
-
-until dealer_score >= 17
-  card = deck.deal
-
-  puts "Dealer was dealt #{card.rank}#{card.suit}"
-
-  dealer.hand << card
-  dealer_score = dealer.calculate_hand
-
-  if dealer_score > 21
-    puts "Dealer score: #{dealer_score}"
-    puts "Dealer Bust!"
-  elsif dealer_score >= 17
-    puts "Dealer stands."
-    puts "Dealer score: #{dealer_score}"
-    puts
-
-    if dealer_score == player_score
-      puts "Push!"
-    elsif dealer_score > player_score ? "You lose!" : "You win!"
+if dealer.get_score < 17
+  until dealer.get_score >= 17
+    card = deck.deal
+    dealer.hand.each do |card|
+      puts "Dealer was dealt #{card.rank}#{card.suit}"
     end
+    dealer.hand << card
+    puts "Dealer score: #{dealer.get_score}"
   end
+else
+  dealer.hand.each do |card|
+    puts "Dealer was dealt #{card.rank}#{card.suit}"
+  end
+  puts "Dealer score: #{dealer.get_score}"
 end
 
-
-
-
+score(player.get_score, dealer.get_score)
 
 

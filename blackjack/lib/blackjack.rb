@@ -82,21 +82,21 @@ end
 puts "Player score: #{player.get_score}"
 puts
 
-if dealer.get_score < 17
+if dealer.get_score <= 16
   until dealer.get_score >= 17
     card = deck.deal
+    dealer.hand << card
     dealer.hand.each do |card|
       puts "Dealer was dealt #{card.rank}#{card.suit}"
     end
-    dealer.hand << card
-    puts "Dealer score: #{dealer.get_score}"
   end
 else
   dealer.hand.each do |card|
     puts "Dealer was dealt #{card.rank}#{card.suit}"
   end
-  puts "Dealer score: #{dealer.get_score}"
 end
+
+puts "Dealer score: #{dealer.get_score}"
 
 score(player.get_score, dealer.get_score)
 

@@ -8,7 +8,7 @@ class Board
     end
     @board.each do |row|
       cols.times do
-        row << "O"
+        row << " "
       end
     end
   end
@@ -17,15 +17,17 @@ class Board
   print_board = "|1 2 3 4 5 6 7|\n"
   @board.each_with_index do |row, index|
     if index == @board.size - 1
-      print_board << "|#{row.join("|")}|"
+      print_board << "|#{row.join(' ')}|"
     else
-      print_board << "|#{row.join("|")}|\n"
+      print_board << "|#{row.join(' ')}|\n"
     end
   end
   print_board
   end
 
-  def add_turn(player, column)
-
+  def valid?(column)
+    @board.all? {|row| row[column] != ' '}
   end
+
+
 end

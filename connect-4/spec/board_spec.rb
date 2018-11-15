@@ -11,8 +11,8 @@ RSpec.describe Board do
     it "should be initialized with 7 coloumns in each row" do
       expect(board.board[0].size).to eq(7)
     end
-    it "should initialized with only 'O' in each slot" do
-      expect(board.board[0][0]).to eq("O")
+    it "should initialized with only ' ' in each slot" do
+      expect(board.board[0][0]).to eq(' ')
     end
   end
 
@@ -20,29 +20,39 @@ RSpec.describe Board do
     it "prints the board" do
       pretty_board = 
         "|1 2 3 4 5 6 7|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|"
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |"
 
       expect(board.print).to eq(pretty_board)
     end
   end
 
-  describe "#add_turn" do
+  describe "#valid?" do
+    it "checks if a column is a valid spot" do
+      binding.pry
+      expect(board.valid?(5)).to eq(true)
+    end
+    
+    it "returns false if column is invalid" do
+      board.board[5][4] = 'R'
+      expect(board.valid?(5)).to eq(false)
+    end
+  end
+
+  describe "#add_peice" do
     it "reflects the player's turn on the board" do
       added_board = 
         "|1 2 3 4 5 6 7|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|O|O|O|\n" +
-        "|O|O|O|O|R|O|O|"
-
-      board.add_turn('R', 5)
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|        R    |"
       expect(board.print).to eq(added_board)
     end
   end

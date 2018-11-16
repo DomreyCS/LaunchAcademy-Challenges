@@ -6,13 +6,13 @@ RSpec.describe Board do
   
   describe ".new" do
     it "should be initialized as a 6 row grid" do
-      expect(board.board.size).to eq(6)
+      expect(board.rows.size).to eq(6)
     end
     it "should be initialized with 7 coloumns in each row" do
-      expect(board.board[0].size).to eq(7)
+      expect(board.rows[0].size).to eq(7)
     end
     it "should initialized with only ' ' in each slot" do
-      expect(board.board[0][0]).to eq(' ')
+      expect(board.rows[0][0]).to eq(' ')
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe Board do
     end
     
     it "returns false if column is invalid" do
-      board.board.each {|row| row[4] = 'R'}
+      board.rows.each {|row| row[4] = 'R'}
       expect(board.valid?(5)).to eq(false)
     end
   end
@@ -53,6 +53,20 @@ RSpec.describe Board do
         "|             |\n" +
         "|        R    |"
       board.add_peice('R', 5)
+      expect(board.print).to eq(added_board)
+    end
+
+    it "reflects the 2nd player's turn on the board" do
+      added_board = 
+        "|1 2 3 4 5 6 7|\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|             |\n" +
+        "|        B    |\n" +
+        "|        R    |"
+      board.add_peice('R', 5)
+      board.add_peice('B', 5)
       expect(board.print).to eq(added_board)
     end
   end

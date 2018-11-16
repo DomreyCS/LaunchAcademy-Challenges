@@ -26,7 +26,7 @@ class Board
   end
 
   def valid?(column)
-    @board.all? {|row| row[column] != ' '}
+    @board.any? {|row| row[column - 1] == ' '}
   end
 
 

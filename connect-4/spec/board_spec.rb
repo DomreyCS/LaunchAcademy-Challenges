@@ -33,12 +33,11 @@ RSpec.describe Board do
 
   describe "#valid?" do
     it "checks if a column is a valid spot" do
-      binding.pry
       expect(board.valid?(5)).to eq(true)
     end
     
     it "returns false if column is invalid" do
-      board.board[5][4] = 'R'
+      board.board.each {|row| row[4] = 'R'}
       expect(board.valid?(5)).to eq(false)
     end
   end
@@ -53,6 +52,7 @@ RSpec.describe Board do
         "|             |\n" +
         "|             |\n" +
         "|        R    |"
+      board.add_peice('R', 5)
       expect(board.print).to eq(added_board)
     end
   end

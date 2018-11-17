@@ -19,7 +19,7 @@ RSpec.describe Board do
   describe "#print" do
     it "prints the board" do
       pretty_board = 
-        "|1 2 3 4 5 6 7|\n" +
+        "|A B C D E F G|\n" +
         "|             |\n" +
         "|             |\n" +
         "|             |\n" +
@@ -33,41 +33,53 @@ RSpec.describe Board do
 
   describe "#valid?" do
     it "checks if a column is a valid spot" do
-      expect(board.valid?(5)).to eq(true)
+      expect(board.valid?('E')).to eq(true)
     end
-    
     it "returns false if column is invalid" do
-      board.rows.each {|row| row[4] = 'R'}
-      expect(board.valid?(5)).to eq(false)
+      board.rows.each {|row| row[4] = 'O'}
+      expect(board.valid?('E')).to eq(false)
     end
   end
 
   describe "#add_peice" do
     it "reflects the player's turn on the board" do
       added_board = 
-        "|1 2 3 4 5 6 7|\n" +
+        "|A B C D E F G|\n" +
         "|             |\n" +
         "|             |\n" +
         "|             |\n" +
         "|             |\n" +
         "|             |\n" +
-        "|        R    |"
-      board.add_peice('R', 5)
+        "|        O    |"
+      board.add_peice('O', 'E')
       expect(board.print).to eq(added_board)
     end
-
     it "reflects the 2nd player's turn on the board" do
       added_board = 
-        "|1 2 3 4 5 6 7|\n" +
-        "|             |\n" +
-        "|             |\n" +
-        "|             |\n" +
-        "|             |\n" +
-        "|        B    |\n" +
-        "|        R    |"
-      board.add_peice('R', 5)
-      board.add_peice('B', 5)
+      "|A B C D E F G|\n" +
+      "|             |\n" +
+      "|             |\n" +
+      "|             |\n" +
+      "|             |\n" +
+      "|        X    |\n" +
+      "|        O    |"
+      board.add_peice('O', 'E')
+      board.add_peice('X', 'E')
       expect(board.print).to eq(added_board)
+    end
+  end
+
+  describe "#win?" do
+    it "should return true if players have 4 vertical markers in a row" do
+      4.times {board.add_peice('X','C')}
+      expect(board.win?).to eq(true)
+    end
+    it "should return false if players do not have 4 vertical markers in a row" do
+      3.times {board.add_peice('X', 'B')}
+      board.add_peice('O', 'B')
+      board.add_peice('X', 'B')
+      binding.pry
+      expect(board.win?).to eq(false)
     end
   end
 end

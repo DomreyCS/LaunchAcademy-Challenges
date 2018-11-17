@@ -1,4 +1,13 @@
 class Board
+  KEY = {
+    A: 0,
+    B: 1,
+    C: 2,
+    D: 3,
+    E: 4,
+    F: 5,
+    G: 6
+  }
   attr_reader :rows
 
   def initialize(rows = 6, cols = 7)
@@ -14,7 +23,7 @@ class Board
   end
 
   def print
-  print_board = "|1 2 3 4 5 6 7|\n"
+  print_board = "|A B C D E F G|\n"
   @rows.each_with_index do |row, index|
     if index == @rows.size - 1
       print_board << "|#{row.join(' ')}|"
@@ -26,15 +35,15 @@ class Board
   end
 
   def valid?(column)
-    @rows.any? {|row| row[column - 1] == ' '}
+    index = KEY[column.to_sym]
+    @rows.any? {|row| row[index] == ' '}
   end
 
   def add_peice(player, column)
     row_index = @rows.size - 1
-    column_index = column - 1
+    column_index = KEY[column.to_sym]
 
     while row_index >= 0 do
-      binding.pry
       if @rows[row_index][column_index] == ' '
         @rows[row_index][column_index] = player
         row_index = -1
@@ -42,5 +51,26 @@ class Board
         row_index-=1
       end
     end
+  end
+
+  def win?
+    previous_row = [nil,nil,nil,nil,nil,nil,nil] # assign first @rows' row
+    connect_count = [0,0,0,0,0,0,0]
+
+    # iterate through rows 
+    @rows.each_with_index do |row, row_index|
+      row.each_with_index do |slot, slot_index|
+        # if slot is not ' ' and character matches the same slot from previous row
+        if slot != ' ' && slot == previous_row[slot_index]
+          connect_count[slot_index] += 1 # increase connect count at the index of match
+      # elsif slot is not ' ' and does'nt match the previous charcter
+        elsif slot != ' ' && slot != previous_row[slot_index]
+          connect_count[slot_index] = 0 # connect count at the index assigned to 0
+        end
+      end
+      previous_row = @rows[row_index]
+    end
+
+    connect_count.any? {|connect| connect == 3}
   end
 end

@@ -2,6 +2,7 @@
   # #finished?
   # #replay?
     #current_player
+
 # Board
   # valid?(column)
   # drop_peice(player, column)
@@ -11,18 +12,16 @@
   # #name
   # #valid_name? consider alternative constructor
 
-
 # while game is not finished or player has 4 in a row
 
-
-loop do
-  # get player's name
+ # get player's name
   # puts "Player 1 what is your name?"
   # player_1 = Player.valid_name?(gets.chomp) :  
     # game cannot start until both names are valid
     # names must be unique
-  
-    # game = Game.new
+
+loop do
+  # game = Game.new
   # player 1 chooses a column
     # is spot valid?
       # if valid
@@ -32,5 +31,5 @@ loop do
     # if not, next players turn
   # player 2 chooses
 
-break if !game.win? || !game.stalemate?
+  break if !board.win? || !board.stalemate?
 end

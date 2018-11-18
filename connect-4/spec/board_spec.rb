@@ -78,8 +78,39 @@ RSpec.describe Board do
       3.times {board.add_peice('X', 'B')}
       board.add_peice('O', 'B')
       board.add_peice('X', 'B')
-      binding.pry
       expect(board.win?).to eq(false)
     end
   end
+
+  describe "#stalemate?" do
+    it "should return true when all slots are filled but no winner is declared" do
+      board.rows = [
+        ["X","O","X","O","X","O","X"],
+        ["O","X","O","X","O","X","O"],
+        ["X","O","X","O","X","O","X"],
+        ["O","X","O","X","O","X","O"],
+        ["X","O","X","O","X","O","X"],
+        ["O","X","O","X","O","X","O"],
+        ["X","O","X","O","X","O","X"]
+      ]
+      expect(board.stalemate?).to eq(true)
+    end
+    it "should return false when slots are remaining on the board" do
+      board.rows = [
+        [" "," "," "," "," "," "," "],
+        [" "," "," "," "," "," "," "],
+        ["X","O","X","O","X","O","X"],
+        ["O","X","O","X","O","X","O"],
+        ["X","O","X","O","X","O","X"],
+        ["O","X","O","X","O","X","O"],
+        ["X","O","X","O","X","O","X"]
+      ]
+      expect(board.stalemate?).to eq(false)
+    end
+    it "returns false if a winner is found" do
+      board.rows.each {|row| row = ["O","O","O","O","O","O","O"]}
+      expect(board.stalemate?).to eq(false)
+    end
+  end
+
 end

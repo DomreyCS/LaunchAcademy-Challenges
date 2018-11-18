@@ -8,7 +8,7 @@ class Board
     F: 5,
     G: 6
   }
-  attr_reader :rows
+  attr_accessor :rows
 
   def initialize(rows = 6, cols = 7)
     @rows = []
@@ -70,7 +70,10 @@ class Board
       end
       previous_row = @rows[row_index]
     end
-
     connect_count.any? {|connect| connect == 3}
+  end
+
+  def stalemate?
+    !win? && !@rows.any? {|row| row.include?(" ")} ? true : false
   end
 end

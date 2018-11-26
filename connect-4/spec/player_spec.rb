@@ -12,6 +12,7 @@ RSpec.describe Player do
   describe "#name" do
     it "takes a name as an argument" do
       expect(p1.name).to eq("Elise")
+
     end
   end
     

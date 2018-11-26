@@ -5,10 +5,22 @@ class Game
   end
 
   def valid_name?(name)
-    @players.any? {|player| player != name.upcase}
+    if @players.any? { |player| player == name }
+      false
+    else
+      true
+    end
+  end
+
+  def replay?(replay)
+    if ["y", "yes", "n", "no"].any? {|choice| choice.casecmp(replay) == 0}
+      true
+    else
+      false
+    end
   end
 
   def add_player(name)
-    @players << name.upcase
+    @players << name
   end
 end

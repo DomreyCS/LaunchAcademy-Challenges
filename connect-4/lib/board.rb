@@ -35,8 +35,12 @@ class Board
   end
 
   def valid?(column)
-    index = KEY[column.to_sym]
-    @rows.any? {|row| row[index] == ' '}
+    if KEY.include?(column.to_sym)
+      index = KEY[column.to_sym]
+      @rows.any? {|row| row[index] == ' '}
+    else
+      return false
+    end
   end
 
   def add_peice(player, column)
@@ -70,6 +74,7 @@ class Board
       end
       previous_row = @rows[row_index]
     end
+    binding.pry
     connect_count.any? {|connect| connect == 3}
   end
 

@@ -74,7 +74,6 @@ class Board
       end
       previous_row = @rows[row_index]
     end
-    binding.pry
     connect_count.any? {|connect| connect == 3}
   end
 

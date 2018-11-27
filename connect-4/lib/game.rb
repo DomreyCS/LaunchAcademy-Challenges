@@ -13,10 +13,12 @@ class Game
   end
 
   def replay?(replay)
-    if ["y", "yes", "n", "no"].any? {|choice| choice.casecmp(replay) == 0}
-      true
+    if ["y", "yes"].any? {|choice| choice.casecmp(replay) == 0}
+      return true
+    elsif ["n", "no"].any? {|choice| choice.casecmp(replay) == 0}
+      return false
     else
-      false
+      puts "Invalid input"
     end
   end
 

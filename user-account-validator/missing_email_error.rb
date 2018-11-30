@@ -1,0 +1,2 @@
+class MissingEmailError < StandardError
+end

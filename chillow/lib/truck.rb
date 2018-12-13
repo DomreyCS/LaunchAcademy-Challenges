@@ -1,24 +1,14 @@
+require_relative "capacity"
+
 class Truck
-  attr_accessor :capacity, :boxes
+  include Capacity
 
-  def initialize(capacity=100)
-    @capacity = capacity
-    @boxes = []
-  end
-
-  def full?
-    boxes.count == capacity ? true : false
-  end
-
-  def add_box(box)
-    boxes << box
-  end
-
-  def remove_box
-    boxes.pop
+  def initialize(max=100)
+    @max = max
+    @current = []
   end
 
   def unload(owner)
-    boxes.reject! { |box| box[:owner] == owner }
+    @current.reject! { |box| box[:owner] == owner }
   end
 end

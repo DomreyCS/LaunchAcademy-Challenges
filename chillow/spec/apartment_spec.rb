@@ -55,40 +55,32 @@ describe Apartment do
 
   describe "#full?" do
     it "returns false when occupants are less than max occupancy" do  
-      warren_suite.maximum_occupants =  4   
+      warren_suite.max = 4   
       expect(warren_suite.full?).to eq(false)
     end
 
     it "returns true when occupants is equal to max occupancy" do
-      warren_suite.maximum_occupants =  4
+      warren_suite.max =  4
       4.times do 
-        warren_suite.add_roomate(Occupant.new("John", "Doe"))
+        warren_suite.add(Occupant.new("John", "Doe"))
       end
       expect(warren_suite.full?).to eq(true)
     end
   end
 
-  describe "#add_roomate" do
+  describe "#add" do
     it "adds occupant to the apartment" do
-      warren_suite.add_roomate("John")
-      expect(warren_suite.occupants).to include("John")
-    end
-
-    it "raises an error when no occupancy" do
-      warren_suite.maximum_occupants = 4
-      4.times do
-        warren_suite.add_roomate("John")
-      end
-      expect{ warren_suite.add_roomate("John") }.to raise_error(RuntimeError, "No rooms available!")
+      warren_suite.add("John")
+      expect(warren_suite.current).to include("John")
     end
   end
 
-  describe "#remove_roomate" do
-    it "removes the occupant from the apartment" do
-      warren_suite.maximum_occupants = 4
-      warren_suite.add_roomate(john)
-      warren_suite.remove_roomate("John", "Doe")
-      expect(warren_suite.occupants).not_to include(john)
+  describe "#remove" do
+    it "removes an occupant from the apartment" do
+      warren_suite.max = 4
+      warren_suite.add(john)
+      warren_suite.remove
+      expect(warren_suite.current).not_to include(john)
     end
   end
 end

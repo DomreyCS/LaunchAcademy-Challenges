@@ -7,7 +7,8 @@ class Zoo
     @name = name
     @season_open = season_open
     @season_close = season_close
-    @cages = Array.new(10, Cage.new)
+    @cages = []
+    10.times {@cages << Cage.new}
     @employees = []
   end
 
@@ -20,12 +21,23 @@ class Zoo
   end
 
   def add_animal(animal)
-    @cages.each do |cage|
-      if cage.empty?
-        cage.animal = animal
-        return
-      end
-      binding.pry
+    available_cages = @cages.select { |cage| cage.empty? }
+
+    if available_cages.count < 1
+      "Your zoo is already at capacity!"
+    else
+      available_cages.first.animal = animal
     end
+  end
+
+  def visit
+    greeting = ""
+    @employees.each {|employee| greeting << "#{employee.name} waved hello!\n"}
+    @cages.each do |cage|
+      if !cage.empty?
+        greeting << "#{cage.animal.speak}\n"
+      end
+    end
+    greeting
   end
 end

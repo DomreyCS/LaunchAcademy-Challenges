@@ -1,7 +1,7 @@
 class Employee
   attr_reader :name, :title
 
-  def initialize(name, title="Zoo Keeper")
+  def initialize(name, title = "Zoo Keeper")
     @name = name
     @title = title
   end

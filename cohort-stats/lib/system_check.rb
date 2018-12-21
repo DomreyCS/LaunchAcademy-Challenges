@@ -1,4 +1,6 @@
-class SystemCheck
+require_relative "lesson"
+
+class SystemCheck < Lesson
   attr_reader :submissions
 
   def initialize(name, due_date)
@@ -17,5 +19,9 @@ class SystemCheck
 
   def did_student_complete_system_check?(student)
     @submissions.any? { |submission| submission.student.name == student.name } 
+  end
+
+  def submittable?
+    true
   end
 end

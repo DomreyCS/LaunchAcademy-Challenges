@@ -52,4 +52,10 @@ describe SystemCheck do
         to eq(false)
     end
   end
+
+  describe "#submittable?" do
+    it "should return true" do
+      expect(system_check.submittable?).to eq(true)
+    end
+  end
 end

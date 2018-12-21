@@ -10,4 +10,12 @@ class SystemCheck
   def add_submission(submission)
     @submissions << submission
   end
+
+  def average_grade
+    @submissions.reduce(0.0) { |sum, submission| sum + submission.grade } / @submissions.count
+  end
+
+  def did_student_complete_system_check?(student)
+    @submissions.any? { |submission| submission.student.name == student.name } 
+  end
 end
